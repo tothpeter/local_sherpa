@@ -28,5 +28,7 @@ source "$SHERPA_LIB_PATH/sherpa.sh"
 # Hook into cd
 setup_cd_hook
 
-# When loading the shell the very first time
-load_local_env
+# Skip loading the local env 2 times for Bash when loading the shell the first time
+if [ -n "$ZSH_VERSION" ]; then
+  load_local_env
+fi
