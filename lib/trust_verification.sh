@@ -19,7 +19,7 @@ verify_trust() {
 
   # Did the local env file change?
   if [[ "$current_checksum" != "$stored_checksum" ]]; then
-    log_info "The local env file has changed. Run \`sherpa trust\` to mark it as trusted."
+    log_info "The local env file has changed. Run \`sherpa trust\` to mark it trusted."
     return 1
   fi
 
@@ -39,7 +39,18 @@ trust_local_env() {
   local current_checksum=$(_calculate_checksum)
 
   echo "$current_checksum" > "$checksum_file"
-  log_info "The local env file is now trusted."
+  log_info "Trusted!"
 
   return 0
+}
+
+untrust_local_env() {
+  local checksum_file="$SHERPA_CHECKSUM_DIR/$(pwd | md5sum | cut -d ' ' -f 1)"
+
+  if [[ -f "$checksum_file" ]]; then
+    rm "$checksum_file"
+    log_info "Trust revoked!"
+  else
+    log_info "The local env file was not trusted before."
+  fi
 }

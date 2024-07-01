@@ -3,6 +3,7 @@ function sherpa() {
 
   local usage_text="Example usage:
   sherpa trust|allow      - Trust the local env file (short-cut alias: \"t\")
+  sherpa untrust          - Untrust the local env file (short-cut alias: \"u\")
   sherpa edit|init        - Edit the local env file (short-cut alias: \"e\")
   sherpa rest|off|disable - Turn Sherpa off for the current session
   sherpa work|on|enable   - Turn Sherpa on for the current session
@@ -16,6 +17,7 @@ Tell sherpa how much he should talk (works only for the current session):
   case $command in
  -h|--help|help|'') echo "$usage_text";;
      t|trust|allow) trust_local_env; load_local_env;;
+         u|untrust) unload_currently_loaded_env; untrust_local_env;;
        e|edit|init) edit; trust_local_env; unload_currently_loaded_env; load_local_env;;
   rest|off|disable) disable;;
     work|on|enable) enable;;
