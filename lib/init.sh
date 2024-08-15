@@ -36,6 +36,11 @@ source "$SHERPA_LIB_DIR/load_unload.sh"
 
 source "$SHERPA_LIB_DIR/cli.sh"
 
+if [ -n "$ZSH_VERSION" ]; then
+  # To make compgen available in zsh
+  autoload -Uz +X bashcompinit && bashcompinit
+fi
+
 # Hook into cd
 _sherpa_setup_cd_hook
 

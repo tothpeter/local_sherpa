@@ -93,8 +93,10 @@ For more details see the [Features](#features) section.
 - Aliases
 - Functions
 
-Unexported variables are not supported yet.\
-Dynamically created entities are not supported yet.
+Non-exported variables and dynamically created entities are supported by
+setting the `SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING` environment variable to
+any value. This executes the local env file in a subshell three times when
+cd'ing into a directory.
 
 ## Side effect
 

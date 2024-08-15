@@ -45,6 +45,31 @@ actual_list=$(_sherpa_parse_local_env_file)
 
 assert_equal "$actual_list" ""
 
+# ==============================================================================
+# ++++ It works for dynamically created variables
+
+SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING=true
+
+# shellcheck disable=SC2034
+existing_non_changed_var="1"
+# shellcheck disable=SC2034
+existing_changed_var="1"
+
+cat <<EOF | override_env_file
+eval "existing_changed_var=CHANGED"
+eval "new_var=new"
+EOF
+
+expected_list="existing_changed_var
+new_var"
+
+actual_list=$(_sherpa_parse_local_env_file | sort)
+
+assert_equal "$actual_list" "$expected_list"
+
+unset SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING
+
+
 # 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰
 #                     Fetching alias names from the env file
 # 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰
@@ -87,6 +112,25 @@ override_env_file "# alias alias_commented='echo "local alias 0";'"
 actual_list=$(_sherpa_parse_local_env_file)
 
 assert_equal "$actual_list" ""
+
+# ==============================================================================
+# ++++ It works for dynamically created aliases
+
+SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING=true
+
+alias existing_alias="echo 1"
+alias alias_1="echo 1"
+
+cat <<EOF | override_env_file
+eval "alias alias_1='echo 1'";
+EOF
+
+actual_list=$(_sherpa_parse_local_env_file)
+
+assert_equal "$actual_list" "alias_1"
+
+unset SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING
+
 
 # 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰
 #                   Fetching function names from the env file
@@ -145,3 +189,21 @@ EOF
 actual_list=$(_sherpa_parse_local_env_file)
 
 assert_equal "$actual_list" ""
+
+# ==============================================================================
+# ++++ It works for dynamically created functions
+
+SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING=true
+
+existing_function() { echo 1; }
+function_1() { echo 1; }
+
+cat <<EOF | override_env_file
+eval "function function_1() { echo 1; }"
+EOF
+
+actual_list=$(_sherpa_parse_local_env_file)
+
+assert_equal "$actual_list" "function_1"
+
+unset SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING
