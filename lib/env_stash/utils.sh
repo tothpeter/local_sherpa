@@ -4,6 +4,14 @@ __SHERPA_ENV_STASH_VAR_PREFIX="__sherpa__env_stash"
 #                            Environment Stash Utils
 # 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰
 
+sherpa::env_stash.unstash_all() {
+  local -r dir_path="$1"
+
+  sherpa::env_stash.unstash_variables "$dir_path"
+  sherpa::env_stash.unstash_aliases "$dir_path"
+  sherpa::env_stash.unstash_functions "$dir_path"
+}
+
 sherpa::env_stash._item_to_variable_name() {
   local -r item_type="$1"
   local -r dir_path=${2:-$PWD}

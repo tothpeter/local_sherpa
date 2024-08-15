@@ -19,11 +19,9 @@ _sherpa_load_global_config "SHERPA_ENABLED" true
 source "$SHERPA_LIB_DIR/logger.sh"
 _sherpa_load_global_config "SHERPA_LOG_LEVEL" "$SHERPA_LOG_LEVEL_INFO"
 
-# Load the dependencies
-source "$SHERPA_DIR/vendor/smartcd/arrays.sh"
-source "$SHERPA_DIR/vendor/smartcd/varstash.sh"
-
 # Load the app
+source "$SHERPA_LIB_DIR/utils.sh"
+
 source "$SHERPA_LIB_DIR/trust_verification.sh"
 source "$SHERPA_LIB_DIR/env_stash/utils.sh"
 source "$SHERPA_LIB_DIR/env_stash/variables.sh"

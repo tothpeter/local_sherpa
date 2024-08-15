@@ -29,7 +29,7 @@ assert_equal "$exported_existing_variable2" "CHANGED 2" "The existed variable2 c
 assert_equal "$new_exported_variable1" "new_exported_variable1 content" "The new variable1 is set"
 assert_equal "$new_exported_variable2" "new_exported_variable2 content" "The new variable2 is set"
 
-sherpa::env_stash.unstash_variables "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten variables
@@ -66,7 +66,7 @@ assert_equal "$existing_variable2" "CHANGED 2" "The existed variable2 changed"
 assert_equal "$new_variable1" "new_variable1 content" "The new variable1 is set"
 assert_equal "$new_variable2" "new_variable2 content" "The new variable2 is set"
 
-sherpa::env_stash.unstash_variables "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten variables
@@ -108,7 +108,7 @@ assert_equal "${existing_indexed_array2[@]}" "CHANGED 2" "The existed indexed ar
 assert_equal "${new_indexed_array1[@]}" "new_indexed_array1 content" "The new indexed array1 is set"
 assert_equal "${new_indexed_array2[@]}" "new_indexed_array2 content" "The new indexed array2 is set"
 
-sherpa::env_stash.unstash_variables "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten variables
@@ -137,7 +137,7 @@ existing_indexed_array1="Not an indexed array"
 # shellcheck disable=SC2128
 assert_equal "$existing_indexed_array1" "Not an indexed array" "The existed indexed array1 changed"
 
-sherpa::env_stash.unstash_variables "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the type of the overwritten variables
@@ -173,7 +173,7 @@ assert_equal "${existing_associative_array2[key2]}" "CHANGED 2" "The existed ass
 assert_equal "${new_associative_array1[key1]}" "new_associative_array1 content" "The new associative array1 is set"
 assert_equal "${new_associative_array2[key2]}" "new_associative_array2 content" "The new associative array2 is set"
 
-sherpa::env_stash.unstash_variables "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten variables
@@ -210,7 +210,7 @@ assert_equal "$(existing_alias2)" "CHANGED 2" "The existed alias2 changed"
 assert_equal "$(new_alias1)" "new_alias1 content" "The new alias1 is set"
 assert_equal "$(new_alias2)" "new_alias2 content" "The new alias2 is set"
 
-sherpa::env_stash.unstash_aliases "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten aliases
@@ -251,7 +251,7 @@ assert_equal "$(existing_function2)" "CHANGED 2" "The existing_function2 changed
 assert_equal "$(new_function1)" "new_function1 content" "The new function 1 is set"
 assert_equal "$(new_function2)" "new_function2 content" "The new function 2 is set"
 
-sherpa::env_stash.unstash_functions "$PWD"
+sherpa::env_stash.unstash_all "$PWD"
 
 # ==============================================================================
 # ++++ It restores the overwritten functiones

@@ -16,10 +16,8 @@ _sherpa_unload_envs_of_exited_dirs() {
       loaded_paths+=("$loaded_path")
     else
       _sherpa_log_debug "Unload env: $loaded_path"
-      varstash_dir="$loaded_path"
-      sherpa::env_stash.unstash_variables "$varstash_dir"
-      sherpa::env_stash.unstash_aliases "$varstash_dir"
-      sherpa::env_stash.unstash_functions "$varstash_dir"
+
+      sherpa::env_stash.unstash_all "$loaded_path"
     fi
   done
 
@@ -41,21 +39,16 @@ _sherpa__is_current_or_parent_dir() {
 _sherpa_unload_all_envs() {
   for loaded_path in "${SHERPA_LOADED_ENV_DIRS[@]}"; do
     _sherpa_log_debug "Unload env: $loaded_path"
-    varstash_dir="$loaded_path"
-    sherpa::env_stash.unstash_variables "$varstash_dir"
-    sherpa::env_stash.unstash_aliases "$varstash_dir"
-    sherpa::env_stash.unstash_functions "$varstash_dir"
+
+    sherpa::env_stash.unstash_all "$loaded_path"
   done
 
   SHERPA_LOADED_ENV_DIRS=()
 }
 
 _sherpa_unload_env_of_current_dir() {
-  varstash_dir="$PWD"
-  sherpa::env_stash.unstash_variables "$varstash_dir"
-  sherpa::env_stash.unstash_aliases "$varstash_dir"
-  sherpa::env_stash.unstash_functions "$varstash_dir"
-  smartcd::ashift SHERPA_LOADED_ENV_DIRS > /dev/null
+  sherpa::env_stash.unstash_all "$PWD"
+  _sherpa_utils::array::remove_first_element SHERPA_LOADED_ENV_DIRS
 }
 
 _sherpa_load_env_from_current_dir() {
@@ -95,23 +88,21 @@ _sherpa_was_env_loaded() {
 
 _sherpa_stash_local_env() {
   _sherpa_log_debug "Stash local env"
-  # shellcheck disable=SC2034
-  varstash_dir="$PWD"
 
   # shellcheck disable=SC2207
   local variable_names=($(_sherpa_fetch_variable_names_from_env_file))
   _sherpa_log_debug "AutoStashing vars: ${variable_names[*]}"
-  sherpa::env_stash.stash_variables "$varstash_dir" "${variable_names[@]}"
+  sherpa::env_stash.stash_variables "$PWD" "${variable_names[@]}"
 
   # shellcheck disable=SC2207
   local alias_names=($(_sherpa_fetch_aliase_names_from_env_file))
   _sherpa_log_debug "AutoStashing aliases: ${alias_names[*]}"
-  sherpa::env_stash.stash_aliases "$varstash_dir" "${alias_names[@]}"
+  sherpa::env_stash.stash_aliases "$PWD" "${alias_names[@]}"
 
   # shellcheck disable=SC2207
   local function_names=($(_sherpa_fetch_function_names_from_env_file))
   _sherpa_log_debug "AutoStashing functions: ${function_names[*]}"
-  sherpa::env_stash.stash_functions "$varstash_dir" "${function_names[@]}"
+  sherpa::env_stash.stash_functions "$PWD" "${function_names[@]}"
 }
 
 _sherpa_test_local_env_file_for_shell_errors() {

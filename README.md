@@ -351,11 +351,7 @@ $ make lint
 
 ## Credits
 
-This project uses the [varstash](https://github.com/cxreg/smartcd?tab=readme-ov-file#varstash)
-library from [smartcd](https://github.com/cxreg/smartcd),
-which is licensed under the Artistic License.
+The core functionality (var, func and alias stashing) of this project was inspired by [Varstash](https://github.com/cxreg/smartcd?tab=readme-ov-file#varstash).
 
-Special thanks to the original author:
+Special thanks to its author:
 - Dave Olszewski <cxreg@pobox.com>
-
-The varstash library is modified to fit the needs of this project.
