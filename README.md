@@ -159,8 +159,12 @@ It is not supported currently. Feel free to open a feature request.
 ### Env loading and unloading
 
 - Sherpa supports nested envs
-  - It unload the envs in the correct order to restore the overridden items.
+  - It unloads the envs in the correct order when leaving a directory to restore
+    the overridden items.
+  - Subfolders can override the items defined in the parent folders.
 - Sherpa does not unload the loaded envs when you `cd` into a subdirectory.
+- Non exported variables and dynamically created entities are unloaded only
+  if the `SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING` environment variable is set.
 
 #### Demo
 
@@ -201,6 +205,8 @@ to operate.
 
 ```shell
 export SHERPA_ENV_FILENAME='.env' # Default: .envrc
+# To support unloading non-exported variables and dynamically created Shell entities
+export SHERPA_ENABLE_DYNAMIC_ENV_FILE_PARSING=true
 ```
 
 ## Settings
@@ -210,11 +216,12 @@ export SHERPA_ENV_FILENAME='.env' # Default: .envrc
 It affects only the current and new terminal sessions.
 
 ```shell
-sherpa talk more   - Decrease the log level
-sherpa talk less   - Increase the log level
-sherpa talk        - Debug level | Aliases: debug
+sherpa talk more   - Decrease the log level | Alias: -
+sherpa talk less   - Increase the log level | Alias: +
+sherpa debug       - Debug level            | Alias: dd
 sherpa shh         - Silence
-sherpa log [LEVEL] - Set a specific log level | Levels: debug, info, warn, error, silent | Aliases: talk
+sherpa log         - Open the log options menu | Alias: talk
+sherpa log [LEVEL] - Set a specific log level  | Levels: debug, info, warn, error, silent | Alias: talk
 ```
 
 ### Disable/enable Sherpa
@@ -288,6 +295,7 @@ alias up='bin/rails s'
 
 ```shell
 $ sherpa diagnose
+$ sherpa status
 ```
 
 ## Local development

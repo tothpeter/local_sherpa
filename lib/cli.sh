@@ -19,8 +19,8 @@ Log levels:
   sherpa talk less   - Increase the log level | Alias: +
   sherpa debug       - Debug level            | Alias: dd
   sherpa shh         - Silence
-  sherpa log         - Open the log options menus | Alias: talk
-  sherpa log [LEVEL] - Set a specific log level   | Levels: debug, info, warn, error, silent | Alias: talk"
+  sherpa log         - Open the log options menu | Alias: talk
+  sherpa log [LEVEL] - Set a specific log level  | Levels: debug, info, warn, error, silent | Alias: talk"
 
   if [ "$USE_SHERPA_DEV_VERSION" = true ]; then
     usage_text="Dev version\n\n$usage_text"
