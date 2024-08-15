@@ -46,3 +46,5 @@ _sherpa_setup_cd_hook
 if [ -n "$ZSH_VERSION" ]; then
   _sherpa_load_env_from_current_dir
 fi
+
+export SHERPA_VERSION="0.1.0"

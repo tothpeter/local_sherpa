@@ -1,31 +1,39 @@
 sherpa() {
-  local -r command="$1"
-
-  local usage_text="Example usage:
-  sherpa trust          - Trust the current directory   | Aliases: t, allow, grant, permit
-  sherpa untrust        - Untrust the current directory | Aliases: u, disallow, revoke, block, deny
-  sherpa edit           - Edit the local env file       | Aliases: e, init
-  sherpa off            - Turn Sherpa off               | Aliases: disable, sleep
-  sherpa on             - Turn Sherpa on                | Aliases: enable, work
-  sherpa symlink [PATH] - Symlink a local env file      | Aliases: link, slink
-  sherpa reload         - Reload the local env          | Alias: r
-
-Troubleshooting:
-  sherpa status   - Show debug status info | Aliases: s, stat
-  sherpa diagnose - Troubleshoot Sherpa
-
-Log levels:
-  sherpa talk more   - Decrease the log level | Alias: -
-  sherpa talk less   - Increase the log level | Alias: +
-  sherpa debug       - Debug level            | Alias: dd
-  sherpa shh         - Silence
-  sherpa log         - Open the log options menu | Alias: talk
-  sherpa log [LEVEL] - Set a specific log level  | Levels: debug, info, warn, error, silent | Alias: talk"
-
   if [ "$USE_SHERPA_DEV_VERSION" = true ]; then
-    usage_text="Dev version\n\n$usage_text"
+    local -r version_info="Version: dev"
+  else
+    local -r version_info="Version: $SHERPA_VERSION"
   fi
 
+  local -r usage_text="sherpa loads and unloads environment on a per-directory basis.
+
+$version_info
+
+Usage:
+  sherpa <command> [options]
+
+Basic Commands:
+  trust          - Trust the current directory   | Aliases: t, allow, grant, permit
+  untrust        - Untrust the current directory | Aliases: u, disallow, revoke, block, deny
+  edit           - Edit the local env file       | Aliases: e, init
+  off            - Turn Sherpa off               | Aliases: disable, sleep
+  on             - Turn Sherpa on                | Aliases: enable, work
+  symlink [PATH] - Symlink a local env file      | Aliases: link, slink
+  reload         - Reload the local env          | Alias: r
+
+Troubleshooting:
+  status   - Show debug status info | Aliases: s, stat
+  diagnose - Run local and global tests
+
+Log levels:
+  talk more   - Decrease the log level | Alias: -
+  talk less   - Increase the log level | Alias: +
+  debug       - Debug level            | Alias: dd
+  shh         - Silence
+  log         - Open the log options menu | Alias: talk
+  log [LEVEL] - Set a specific log level  | Levels: debug, info, warn, error, silent | Alias: talk"
+
+  local -r command="$1"
   case $command in
                      -h|--help|help|'') echo "$usage_text";;
             t|trust|allow|grant|permit) _sherpa_cli_trust;;
