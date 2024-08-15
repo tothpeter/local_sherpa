@@ -96,9 +96,9 @@ setup_test_dir() {
 
 test_trusting_the_current_directory() {
   if sherpa trust > /dev/null 2> "$STDERR_FILE"; then
-    print_success "[OK] Trusting the current directory"
+    print_success "[OK] Trusting env files"
   else
-    print_error "[NOT OK] Trusting the current directory"
+    print_error "[NOT OK] Trusting env files"
     cat "$STDERR_FILE" >&2
     rm "$STDERR_FILE"
     exit 1

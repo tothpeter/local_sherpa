@@ -119,7 +119,7 @@ stub_function "sha256sum" "fake_sha256sum"
 
 subject
 
-assert_contain "$(cat "$STDERR_FILE")" "\[NOT OK\] Trusting the current directory" "It warns when trusting a directory fails"
+assert_contain "$(cat "$STDERR_FILE")" "\[NOT OK\] Trusting env files" "It warns when trusting a directory fails"
 reset_stubs
 
 
@@ -127,7 +127,7 @@ reset_stubs
 # ++++ It acknowledges when trusting a directory succeeds
 subject
 
-assert_contain "$(cat "$STDOUT_FILE")" "\[OK\] Trusting the current directory" "It acknowledges when trusting a directory succeeds"
+assert_contain "$(cat "$STDOUT_FILE")" "\[OK\] Trusting env files" "It acknowledges when trusting a directory succeeds"
 
 
 # ==============================================================================

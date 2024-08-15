@@ -16,7 +16,7 @@ __sherpa_status_print_local_env_file_info() {
     return
   fi
 
-  echo "Local env file: $SHERPA_ENV_FILENAME"
+  echo "Local env file:"
 
   _sherpa_verify_trust > /dev/null
   case "$?" in
