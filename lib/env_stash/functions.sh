@@ -29,10 +29,7 @@ sherpa::env_stash._stash_existing_function() {
   function_definition=$(declare -f "$function_name")
 
   # Escape special characters to avoid interpretation at stash time
-  function_definition="${function_definition//\\/\\\\}"
-  function_definition="${function_definition//\"/\\\"}"
-  function_definition="${function_definition//\`/\\\`}"
-  function_definition="${function_definition//\$/\\\$}"
+  function_definition=$(sherpa::env_stash._escape_for_eval "$function_definition")
 
   eval "$variable_name_for_functions_to_restore+=(\"$function_definition\")"
 }

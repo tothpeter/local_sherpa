@@ -26,3 +26,14 @@ sherpa::env_stash._path_to_variable_prefix() {
   dir_path="${dir_path:1}" # Remove the first slash
   echo "${dir_path//[^a-zA-Z0-9]/_}"
 }
+
+sherpa::env_stash._escape_for_eval() {
+  local string="$1"
+
+  string="${string//\\/\\\\}"
+  string="${string//\"/\\\"}"
+  string="${string//\`/\\\`}"
+  string="${string//\$/\\\$}"
+
+  echo "$string"
+}

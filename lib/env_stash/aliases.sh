@@ -33,10 +33,7 @@ sherpa::env_stash._stash_existing_alias() {
   fi
 
   # Escape special characters to avoid interpretation at stash time
-  alias_definition="${alias_definition//\\/\\\\}"
-  alias_definition="${alias_definition//\"/\\\"}"
-  alias_definition="${alias_definition//\`/\\\`}"
-  alias_definition="${alias_definition//\$/\\\$}"
+  alias_definition=$(sherpa::env_stash._escape_for_eval "$alias_definition")
 
   eval "$variable_name_for_aliases_to_restore+=(\"$alias_definition\")"
 }

@@ -29,10 +29,7 @@ sherpa::env_stash._stash_existing_variable() {
   variable_definition=$(declare -p "$variable_name")
 
   # Escape special characters to avoid interpretation at stash time
-  variable_definition="${variable_definition//\\/\\\\}"
-  variable_definition="${variable_definition//\"/\\\"}"
-  variable_definition="${variable_definition//\`/\\\`}"
-  variable_definition="${variable_definition//\$/\\\$}"
+  variable_definition=$(sherpa::env_stash._escape_for_eval "$variable_definition")
 
   eval "$variable_name_for_variables_to_restore+=(\"$variable_definition\")"
 }
