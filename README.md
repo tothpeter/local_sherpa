@@ -1,5 +1,11 @@
 # Sherpa - Project based development environment
 
+<p align="center">
+  <!-- <img src="_github_assets/logo.svg" /> -->
+  <img src="_github_assets/logo_light.png" alt="Logo" />
+</p>
+
+
 Sherpa carries your local environment settings for you as you `cd` through projects, space and time.
 
 ## Status
